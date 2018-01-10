@@ -5,5 +5,7 @@
 
 export const environment = {
   production: false,
-  imageUrl: "http://localhost:8080/imreader/api/v0.1/image"
+  imageUrl: "http://localhost:8080/imreader/api/v0.1/image",
+  sampleUrl: "http://localhost:8080/imreader/api/v0.1/image/sample",
+  baseUrl: "http://localhost:8080"
 };

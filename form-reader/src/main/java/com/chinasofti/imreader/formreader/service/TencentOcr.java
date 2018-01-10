@@ -1,5 +1,6 @@
 package com.chinasofti.imreader.formreader.service;
 
+import com.google.common.io.ByteStreams;
 import com.qcloud.image.sign.Credentials;
 import com.qcloud.image.sign.Sign;
 import org.apache.http.HttpHeaders;
@@ -13,6 +14,9 @@ import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 
 import javax.annotation.PostConstruct;
+import java.io.ByteArrayInputStream;
+import java.io.IOException;
+import java.io.InputStream;
 import java.nio.charset.Charset;
 import java.time.Duration;
 
@@ -77,5 +81,12 @@ public class TencentOcr {
                 .bodyString(body, ContentType.APPLICATION_JSON)
                 .execute().returnContent().asString();
         return text;
+    }
+
+    public String testSample(String id) throws Exception {
+        InputStream input = this.getClass().getResourceAsStream("/static/sample/0" + id + ".png");
+        byte[] bytes = ByteStreams.toByteArray(input);
+        input.close();
+        return sendGeneralTextImage(bytes, "image/png", "0" + id + ".png");
     }
 }

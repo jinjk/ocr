@@ -8,17 +8,21 @@ import { ImageUploadModule } from "angular2-image-upload";
 import { AppComponent } from './app.component';
 import { ImageViewerComponent } from './image-viewer/image-viewer.component';
 import { ImageUploaderComponent } from './image-uploader/image-uploader.component';
-import { ImageOcrService } from './services/image-ocr.service'
+import { ImageOcrService } from './services/image-ocr.service';
+import { SampleComponent } from './sample/sample.component'
 
 const appRoutes: Routes = [
-  { path: '', component: ImageViewerComponent }
+  { path: '', component: ImageViewerComponent },
+  { path: 'sample/:id', component: SampleComponent },
+  { path: '**',   redirectTo: '', pathMatch: 'full' }
 ];
 
 @NgModule({
   declarations: [
     AppComponent,
     ImageViewerComponent,
-    ImageUploaderComponent
+    ImageUploaderComponent,
+    SampleComponent
   ],
   imports: [
     RouterModule.forRoot(
