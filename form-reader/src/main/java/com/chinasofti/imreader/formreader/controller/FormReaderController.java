@@ -15,7 +15,7 @@ public class FormReaderController {
 
     @RequestMapping(value = "", method = RequestMethod.POST, produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
     public @ResponseBody
-    String uploadImage(@RequestParam("file") MultipartFile uploadfile) throws Exception {
+    String uploadImage(@RequestParam("image") MultipartFile uploadfile) throws Exception {
         return recognizeText(uploadfile);
     }
 
