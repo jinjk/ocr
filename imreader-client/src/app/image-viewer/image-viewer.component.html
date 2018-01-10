@@ -1,0 +1,6 @@
+      <!-- Example row of columns -->
+      <div class="row" *ngIf="data != null && data.code == 0">
+        <div class="col-md-4" *ngFor="let item of data.data.items">
+          <p>{{item.itemstring}} </p>
+        </div>
+      </div>
