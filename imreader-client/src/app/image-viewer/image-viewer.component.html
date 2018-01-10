@@ -1,6 +1,13 @@
-      <!-- Example row of columns -->
-      <div class="row" *ngIf="data != null && data.code == 0">
-        <div class="col-md-4" *ngFor="let item of data.data.items">
-          <p>{{item.itemstring}} </p>
-        </div>
-      </div>
+<!-- Example row of columns -->
+<div class="row" *ngIf="data != null && data.code == 0">
+  <div class="col-md-6">
+      <img alt="Embedded Image" [src]="imageSrc" />
+  </div>
+  <div class="col-md-6">
+    <svg xmlns="http://www.w3.org/2000/svg"  width="100%" height="1800">
+      <g *ngFor="let item of data.data.items">
+        <text [attr.x]="item.itemcoord.x * 1.2" [attr.y]="item.itemcoord.y * 1.1" font-family="Verdana" font-size="11" fill="blue">{{item.itemstring}}</text>
+      </g>
+    </svg>
+  </div>
+</div>

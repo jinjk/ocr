@@ -1,6 +1,15 @@
 /* Move down content because we have a fixed navbar that is 50px tall */
 body {
-    padding-top: 50px;
-    padding-bottom: 20px;
-  }
+  padding-top: 50px;
+  padding-bottom: 20px;
+}
   
+.container-full {
+  margin: 0 auto;
+  width: 100%;
+}
+
+.container {
+  margin: 0 auto;
+  width: 100%;
+}

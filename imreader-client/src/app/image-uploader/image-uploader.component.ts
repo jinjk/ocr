@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { UploadMetadata } from "angular2-image-upload";
 import { ImageOcrService } from '../services/image-ocr.service'
+import { environment } from '../../environments/environment';
 
 @Component({
   selector: 'app-image-uploader',
@@ -10,14 +11,15 @@ import { ImageOcrService } from '../services/image-ocr.service'
 export class ImageUploaderComponent implements OnInit {
 
   constructor(private imageOcrService: ImageOcrService) { }
+  info: boolean = environment.production;
 
   ngOnInit() {
   }
 
-  imageUrl: String = "http://localhost:8080/imreader/api/v0.1/image";
+  imageUrl: String = environment.imageUrl;
 
   onUploadFinished(event: any) : void {
-    this.imageOcrService.subject.next(event.serverResponse.json());
+    this.imageOcrService.subject.next(event);
   }
 
   onBeforeUpload = (metadata: UploadMetadata) => {

@@ -8,13 +8,14 @@ import { ImageOcrService } from '../services/image-ocr.service';
 })
 export class ImageViewerComponent implements OnInit {
   data: any;
+  imageSrc: String;
 
   constructor(private imageOcrService: ImageOcrService) { }
 
   ngOnInit() {
-    this.imageOcrService.imageSent((data: any) => {
-      console.log(data);
-      this.data = data;
+    this.imageOcrService.imageSent((event: any) => {
+      this.data = event.serverResponse.json();
+      this.imageSrc = event.src;
     })
   }
 
