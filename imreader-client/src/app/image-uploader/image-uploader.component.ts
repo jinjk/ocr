@@ -11,7 +11,6 @@ import { environment } from '../../environments/environment';
 export class ImageUploaderComponent implements OnInit {
 
   constructor(private imageOcrService: ImageOcrService) { }
-  info: boolean = environment.production;
 
   ngOnInit() {
   }
