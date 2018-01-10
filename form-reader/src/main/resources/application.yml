@@ -1,0 +1,26 @@
+---
+tencent.ocr:
+  url: http://recognition.image.myqcloud.com/ocr
+  projectId: 1255863570
+  appId: 1255863570
+  bucket: formreader
+  secretId: AKID0yplW9BP5oZOHF7y8A1rX6VikcWMB1qT
+  secretKey: c2KRN7f1DD2f9Xky4ziIgw46xeAVfeS5
+  generalOcrAPi: /general
+
+logging.level:
+  com.chinasofti.imreader: DEBUG
+  org.apache.http.wire: INFO
+---
+spring.profiles: prod
+tencent.ocr:
+  url: http://recognition.image.myqcloud.com/ocr
+  projectId: 1255863570
+  appId: 1255863570
+  bucket: formreader
+  secretId: AKID0yplW9BP5oZOHF7y8A1rX6VikcWMB1qT
+  secretKey: c2KRN7f1DD2f9Xky4ziIgw46xeAVfeS5
+  generalOcrAPi: /general
+
+logging.level:
+  com.chinasofti.imreader: DEBUG
