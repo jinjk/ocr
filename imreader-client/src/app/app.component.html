@@ -7,11 +7,14 @@
         <span class="icon-bar"></span>
         <span class="icon-bar"></span>
       </button>
-      <a class="navbar-brand" routerLink="/">上传表单</a>
-      <a class="navbar-brand" [routerLink]="['/sample', '1']">示例 01</a>
-      <a class="navbar-brand" [routerLink]="['/sample', '2']">示例 02</a>
-      <a class="navbar-brand" [routerLink]="['/sample', '3']">示例 03</a>
-    </div>
+
+      <ul class="nav navbar-nav">
+        <li routerLinkActive="active" [routerLinkActiveOptions]="{exact: true}"><a [routerLink]="['/']">上传表单</a></li>
+        <li routerLinkActive="active" [routerLinkActiveOptions]="{exact: true}"><a [routerLink]="['/sample', '1']">示例 01</a></li>
+        <li routerLinkActive="active" [routerLinkActiveOptions]="{exact: true}"><a [routerLink]="['/sample', '2']">示例 02</a></li>
+        <li routerLinkActive="active" [routerLinkActiveOptions]="{exact: true}"><a [routerLink]="['/sample', '3']">示例 03</a></li>
+      </ul>
+    </div><!--/.nav-collapse -->
     <div id="navbar" class="navbar-collapse collapse">
       <form class="navbar-form navbar-right">
         <div class="form-group">
