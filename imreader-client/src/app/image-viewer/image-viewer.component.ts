@@ -1,5 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { ImageOcrService } from '../services/image-ocr.service';
+declare var jquery:any;
+declare var $ :any;
 
 @Component({
   selector: 'app-image-viewer',
@@ -21,6 +23,15 @@ export class ImageViewerComponent implements OnInit {
     });
   }
 
+  imageLoad() {
+    var $img = $("#preview");
+    var h=$img.height(),w=$img.width()
+    $img.removeAttr('width').removeAttr('height')
+    var actualHeight =$img.height(),actualWidth=$img.width()
+    $img.attr({height:h,width:w}).data({height: actualHeight, width: actualWidth})
+    console.log(actualHeight,actualWidth);
+    $("svg").attr("viewBox", `0 0 ${actualWidth * 1.2} ${actualHeight * 1.2}`);
+  }
 
-
+  
 }

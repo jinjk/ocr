@@ -3,19 +3,14 @@
 <div class="container">
   <div class="row" *ngIf="data != null && data.code == 0">
     <div class="col-md-6">
-        <img class="img-responsive" alt="Embedded Image" [src]="imageSrc" />
+        <img id="preview" class="img-responsive" alt="Embedded Image" [src]="imageSrc" (load)="imageLoad()" />
     </div>
     <div class="col-md-6">
-      <svg xmlns="http://www.w3.org/2000/svg" width="100%" height="100%" viewBox="0 0 800 800" >
+      <svg xmlns="http://www.w3.org/2000/svg" width="100%" height="100%" viewBox="0 0 0 0" >
         <g *ngFor="let item of data.data.items">
-          <text [attr.x]="item.itemcoord.x * 1.1" [attr.y]="item.itemcoord.y * 1.1" font-family="Verdana" font-size="12" fill="blue">{{item.itemstring}}</text>
+          <text [attr.x]="item.itemcoord.x" [attr.y]="item.itemcoord.y" font-family="Verdana" font-size="12" fill="blue">{{item.itemstring}}</text>
         </g>
       </svg>
     </div>
-    <script>
-      let width = $("img").attr("width");
-      let height = $("img").attr("height");
-      $("svg").attr("viewBox", `0 0 ${width * 1.1} ${height * 1.1}`);
-    </script>
   </div>
 </div>
