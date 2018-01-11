@@ -11,4 +11,4 @@
 /*
  * See the Getting Started docs for more information:
  * http://getbootstrap.com/getting-started/#support-ie10-width
- */@-ms-viewport{width:device-width}@-o-viewport{width:device-width}@viewport{width:device-width}/* Move down content because we have a fixed navbar that is 50px tall */body{padding-top:50px;padding-bottom:20px}.container,.container-full{margin:0 auto;width:100%}
+ */@-ms-viewport{width:device-width}@-o-viewport{width:device-width}@viewport{width:device-width}/* Move down content because we have a fixed navbar that is 50px tall */body{min-height:2000px;padding-top:70px}.container,.container-full{margin:0 auto;width:100%}
