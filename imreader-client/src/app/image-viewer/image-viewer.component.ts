@@ -30,7 +30,7 @@ export class ImageViewerComponent implements OnInit {
     var actualHeight =$img.height(),actualWidth=$img.width()
     $img.attr({height:h,width:w}).data({height: actualHeight, width: actualWidth})
     console.log(actualHeight,actualWidth);
-    $("svg").attr("viewBox", `0 0 ${actualWidth * 1.2} ${actualHeight * 1.2}`);
+    $("svg").attr("viewBox", `-10 -10 ${actualWidth * 1.2} ${actualHeight * 1.2}`);
   }
 
   
