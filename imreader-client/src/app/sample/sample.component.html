@@ -1,14 +1,23 @@
 <!-- Example row of columns -->
-<div class="row" *ngIf="ocrSample != null; else loading_content">
+<div class="container">
+  <div class="row" *ngIf="ocrSample != null; else loading_content">
     <div class="col-md-6">
-        <img alt="Embedded Image" [src]="baseUrl + ocrSample.imageUrl" />
+      <img class="img-responsive" alt="Embedded Image" [src]="baseUrl + ocrSample.imageUrl" />
     </div>
     <div class="col-md-6">
-      <svg xmlns="http://www.w3.org/2000/svg"  width="100%" height="1800">
+      <svg xmlns="http://www.w3.org/2000/svg" width="100%" height="100%" viewBox="0 0 800 800" >
         <g *ngFor="let item of ocrSample.ocr.data.items">
-          <text [attr.x]="item.itemcoord.x * 1.2" [attr.y]="item.itemcoord.y * 1.1" font-family="Verdana" font-size="11" fill="blue">{{item.itemstring}}</text>
+          <text [attr.x]="item.itemcoord.x * 1.1" [attr.y]="item.itemcoord.y * 1.1" font-family="Verdana" font-size="12" fill="blue">{{item.itemstring}}</text>
         </g>
       </svg>
     </div>
+    <script>
+      let width = $("img").attr("width");
+      let height = $("img").attr("height");
+      $("svg").attr("viewBox", `0 0 ${width * 1.1} ${height * 1.1}`);
+    </script>
   </div>
-  <ng-template #loading_content><div class="loader"></div></ng-template>
+  <ng-template #loading_content>
+    <div class="loader"></div>
+  </ng-template>
+</div>
