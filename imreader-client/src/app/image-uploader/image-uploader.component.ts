@@ -22,7 +22,7 @@ export class ImageUploaderComponent implements OnInit {
   }
 
   onBeforeUpload = (metadata: UploadMetadata) => {
-    console.log(metadata)
+    this.imageOcrService.subject.next(metadata);
     return metadata;
   };
 
