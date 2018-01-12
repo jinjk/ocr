@@ -7,14 +7,32 @@ import org.springframework.web.servlet.config.annotation.EnableWebMvc;
 import org.springframework.web.servlet.config.annotation.ResourceHandlerRegistry;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurerAdapter;
 
+import javax.annotation.PostConstruct;
+
 @Configuration
 public class WebConfig {
+    private String extResouceDir;
+
+    @PostConstruct
+    public void init() {
+        extResouceDir = System.getProperty("user.home") + "/sample";
+    }
+
+    public String getExtResouceDir() {
+        return extResouceDir;
+    }
+
     @Bean
     WebMvcConfigurerAdapter enableCors() {
         return new WebMvcConfigurerAdapter() {
             @Override
             public void addCorsMappings(CorsRegistry registry) {
                 registry.addMapping("/**");
+            }
+
+            @Override
+            public void addResourceHandlers(ResourceHandlerRegistry registry) {
+                registry.addResourceHandler("/**").addResourceLocations("file:" + extResouceDir +"/");
             }
         };
     }

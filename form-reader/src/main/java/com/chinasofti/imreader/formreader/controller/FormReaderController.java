@@ -32,7 +32,7 @@ public class FormReaderController {
         String text = tencentOcr.testSample(id);
         JSONObject object = new JSONObject(text);
         JSONObject wrapper = new JSONObject();
-        wrapper.put("imageUrl", "/sample/0" + id + ".png");
+        wrapper.put("imageUrl", "/" + id + ".png");
         wrapper.put("ocr", object);
         return wrapper.toString();
     }

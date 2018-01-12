@@ -1,5 +1,6 @@
 package com.chinasofti.imreader.formreader.service;
 
+import com.chinasofti.imreader.formreader.WebConfig;
 import com.google.common.io.ByteStreams;
 import com.qcloud.image.sign.Credentials;
 import com.qcloud.image.sign.Sign;
@@ -10,19 +11,22 @@ import org.apache.http.entity.mime.HttpMultipartMode;
 import org.apache.http.entity.mime.MultipartEntityBuilder;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 
 import javax.annotation.PostConstruct;
-import java.io.ByteArrayInputStream;
-import java.io.IOException;
-import java.io.InputStream;
+import java.io.*;
 import java.nio.charset.Charset;
+import java.nio.file.Paths;
 import java.time.Duration;
 
 @Service
 public class TencentOcr {
     Logger logger = LoggerFactory.getLogger(TencentOcr.class);
+    @Autowired
+    WebConfig config;
+
     @Value("${tencent.ocr.url}")
     private String ocrUrl;
     @Value("${tencent.ocr.projectId}")
@@ -37,12 +41,14 @@ public class TencentOcr {
     private String secretKey;
     @Value("${tencent.ocr.generalOcrAPi}")
     private String generalOcrAPi;
+    private String sampleDir;
 
     private Credentials credentials = null;
 
     @PostConstruct
     public void init() {
         credentials = new Credentials(appId, secretId, secretKey);
+        sampleDir = config.getExtResouceDir();
     }
 
     public String sendGeneralTextImage(byte[] bytes, String mimeType, String fileName) throws Exception {
@@ -84,9 +90,10 @@ public class TencentOcr {
     }
 
     public String testSample(String id) throws Exception {
-        InputStream input = this.getClass().getResourceAsStream("/static/sample/0" + id + ".png");
+        File f = Paths.get(sampleDir, id + ".png").toFile();
+        InputStream input = new FileInputStream(f);
         byte[] bytes = ByteStreams.toByteArray(input);
         input.close();
-        return sendGeneralTextImage(bytes, "image/png", "0" + id + ".png");
+        return sendGeneralTextImage(bytes, "image/png", id + ".png");
     }
 }

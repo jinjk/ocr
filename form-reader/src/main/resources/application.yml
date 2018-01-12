@@ -8,6 +8,7 @@ tencent.ocr:
   secretKey: c2KRN7f1DD2f9Xky4ziIgw46xeAVfeS5
   generalOcrAPi: /general
 
+
 logging.level:
   com.chinasofti.imreader: DEBUG
   org.apache.http.wire: INFO
