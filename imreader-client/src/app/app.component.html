@@ -25,11 +25,16 @@
         <li routerLinkActive="active" [routerLinkActiveOptions]="{exact: true}">
           <a [routerLink]="['/sample', '3']" [queryParams]="{ api: 'general' }">示例 03</a>
         </li>
-        <li routerLinkActive="active" [routerLinkActiveOptions]="{exact: true}">
-          <a [routerLink]="['/sample', '3']" [queryParams]="{ api: 'general' }">示例 04</a>
-        </li>
-        <li routerLinkActive="active" [routerLinkActiveOptions]="{exact: true}">
-          <a [routerLink]="['/sample', '3']" [queryParams]="{ api: 'general' }">示例 05</a>
+        <li class="dropdown">
+          <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">手写识别示例 <span class="caret"></span></a>
+          <ul class="dropdown-menu">
+              <li routerLinkActive="active" [routerLinkActiveOptions]="{exact: true}">
+                  <a [routerLink]="['/sample', '4']" [queryParams]="{ api: 'handwriting' }">示例 04</a>
+                </li>
+                <li routerLinkActive="active" [routerLinkActiveOptions]="{exact: true}">
+                  <a [routerLink]="['/sample', '5']" [queryParams]="{ api: 'handwriting' }">示例 05</a>
+                </li>
+          </ul>
         </li>
       </ul>
     </div>

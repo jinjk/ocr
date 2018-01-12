@@ -68,6 +68,7 @@ public class TencentOcr {
                 .addBinaryBody("image", bytes, ContentType.create(mimeType), fileName)
                 .build();
 
+        logger.info("Request API URL: {}", ocrUrl + api);
         String text = Request.Post(ocrUrl + api)
                 .setHeader(HttpHeaders.AUTHORIZATION, auth)
                 .body(entity)
@@ -78,28 +79,11 @@ public class TencentOcr {
     }
 
 
-    public String test() throws Exception {
-        String body = "{\n" +
-                "  \"appid\":\"" + appId + "\",\n" +
-                "  \"bucket\":\"" + bucket + "\",\n" +
-                "  \"url\":\"http://formreader-1255863570.cos.ap-shanghai.myqcloud.com/test.png\"\n" +
-                "  }";
-
-        String auth = Sign.appSign(credentials, bucket, Duration.ofMinutes(30).getSeconds());
-
-
-        String text = Request.Post(ocrUrl + generalOcrAPi)
-                .setHeader(HttpHeaders.AUTHORIZATION, auth)
-                .bodyString(body, ContentType.APPLICATION_JSON)
-                .execute().returnContent().asString();
-        return text;
-    }
-
-    public String testSample(String id) throws Exception {
+    public String testSample(String id, String api) throws Exception {
         File f = Paths.get(sampleDir, id + ".png").toFile();
         InputStream input = new FileInputStream(f);
         byte[] bytes = ByteStreams.toByteArray(input);
         input.close();
-        return sendGeneralTextImage(bytes, "image/png", id + ".png", null);
+        return sendGeneralTextImage(bytes, "image/png", id + ".png", api);
     }
 }

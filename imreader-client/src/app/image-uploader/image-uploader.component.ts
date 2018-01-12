@@ -25,6 +25,7 @@ export class ImageUploaderComponent implements OnInit {
   }
 
   onBeforeUpload = (metadata: UploadMetadata) => {
+    console.debug("upload Image: %s", metadata.url);
     metadata.formData = {
       api: this.api
     };

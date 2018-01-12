@@ -20,16 +20,10 @@ public class FormReaderController {
         return recognizeText(uploadfile, api);
     }
 
-    @RequestMapping(value = "/test", method = RequestMethod.GET)
-    public @ResponseBody
-    String test() throws Exception {
-        return tencentOcr.test();
-    }
-
     @RequestMapping(value = "/sample/{id}", method = RequestMethod.GET)
     public @ResponseBody
     String readSample(@PathVariable("id") String id, @RequestParam("api") String api) throws Exception {
-        String text = tencentOcr.testSample(id);
+        String text = tencentOcr.testSample(id, api);
         JSONObject object = new JSONObject(text);
         JSONObject wrapper = new JSONObject();
         wrapper.put("imageUrl", "/" + id + ".png");

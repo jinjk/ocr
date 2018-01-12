@@ -5,6 +5,7 @@
       <button type="button" [ngClass]="{'btn-primary': api == 'handwriting'}" (click)="setApi('handwriting')" class="btn btn-default">手写字体识别</button>
     </div>
   </div>
+  <br/>
   <div class="row">
     <image-upload [url]="imageUrl" [beforeUpload]="onBeforeUpload" (uploadFinished)="onUploadFinished($event)">
     </image-upload>

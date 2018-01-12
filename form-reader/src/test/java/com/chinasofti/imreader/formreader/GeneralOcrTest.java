@@ -43,14 +43,6 @@ public class GeneralOcrTest {
     }
 
     @Test
-    public void urlImageTest() throws Exception {
-        String text = tencentOcr.test();
-        System.out.println(text);
-        Assert.assertThat(text, notNullValue());
-        Assert.assertThat(text, not(equalTo("")));
-    }
-
-    @Test
     public void postImageTest() throws Exception {
         InputStream inputStream = this.getClass().getResourceAsStream("/test02.jpg");
         MockMultipartFile firstFile = new MockMultipartFile("file", "test02.jpg", "image/jpeg", inputStream);

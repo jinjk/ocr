@@ -41,6 +41,7 @@ export class ImageOcrService {
   }
 
   getSample(id: string, api: string): Observable<any> {
+    console.debug(`send request: ${environment.sampleUrl}/${id}?api=${api}`);
     return this.http.get<any>(`${environment.sampleUrl}/${id}?api=${api}`);
   }
 }

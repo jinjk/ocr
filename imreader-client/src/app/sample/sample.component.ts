@@ -35,7 +35,7 @@ export class SampleComponent implements OnInit {
     $img.removeAttr('width').removeAttr('height')
     var actualHeight =$img.height(),actualWidth=$img.width()
     $img.attr({height:h,width:w}).data({height: actualHeight, width: actualWidth})
-    console.log(actualHeight,actualWidth);
+    console.debug(actualHeight,actualWidth);
     $("svg").attr("viewBox", `-10 -10 ${actualWidth * 1.2} ${actualHeight * 1.2}`);
   }
 
