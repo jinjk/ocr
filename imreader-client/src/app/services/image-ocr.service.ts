@@ -40,7 +40,7 @@ export class ImageOcrService {
     }).subscribe({ next: (v) => callback(v) })
   }
 
-  getSample(id: string): Observable<any> {
-    return this.http.get<any>(`${environment.sampleUrl}/${id}`);
+  getSample(id: string, api: string): Observable<any> {
+    return this.http.get<any>(`${environment.sampleUrl}/${id}?api=${api}`);
   }
 }

@@ -7,6 +7,7 @@ tencent.ocr:
   secretId: AKID0yplW9BP5oZOHF7y8A1rX6VikcWMB1qT
   secretKey: c2KRN7f1DD2f9Xky4ziIgw46xeAVfeS5
   generalOcrAPi: /general
+  handwritingApi: /handwriting
 
 
 logging.level:

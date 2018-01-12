@@ -1,25 +1,41 @@
-    <!-- Fixed navbar -->
-    <nav class="navbar navbar-default navbar-fixed-top">
-      <div class="container">
-        <div class="navbar-header">
-          <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar" aria-expanded="false" aria-controls="navbar">
-            <span class="sr-only">Toggle navigation</span>
-            <span class="icon-bar"></span>
-            <span class="icon-bar"></span>
-            <span class="icon-bar"></span>
-          </button>
-          <a class="navbar-brand" href="#">字符识别演示程序</a>
-        </div>
-        <div id="navbar" class="navbar-collapse collapse">
-          <ul class="nav navbar-nav">
-            <li routerLinkActive="active" [routerLinkActiveOptions]="{exact: true}"><a [routerLink]="['/']">上传表单</a></li>
-            <li routerLinkActive="active" [routerLinkActiveOptions]="{exact: true}"><a [routerLink]="['/sample', '1']">示例 01</a></li>
-            <li routerLinkActive="active" [routerLinkActiveOptions]="{exact: true}"><a [routerLink]="['/sample', '2']">示例 02</a></li>
-            <li routerLinkActive="active" [routerLinkActiveOptions]="{exact: true}"><a [routerLink]="['/sample', '3']">示例 03</a></li>
-          </ul>
-        </div><!--/.nav-collapse -->
-      </div>
-    </nav>
+<!-- Fixed navbar -->
+<nav class="navbar navbar-default navbar-fixed-top">
+  <div class="container">
+    <div class="navbar-header">
+      <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar" aria-expanded="false"
+        aria-controls="navbar">
+        <span class="sr-only">Toggle navigation</span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+      </button>
+      <a class="navbar-brand" href="#">字符识别演示程序</a>
+    </div>
+    <div id="navbar" class="navbar-collapse collapse">
+      <ul class="nav navbar-nav">
+        <li routerLinkActive="active" [routerLinkActiveOptions]="{exact: true}">
+          <a [routerLink]="['/']">上传表单</a>
+        </li>
+        <li routerLinkActive="active" [routerLinkActiveOptions]="{exact: true}">
+          <a [routerLink]="['/sample', '1']" [queryParams]="{ api: 'general' }">示例 01</a>
+        </li>
+        <li routerLinkActive="active" [routerLinkActiveOptions]="{exact: true}">
+          <a [routerLink]="['/sample', '2']" [queryParams]="{ api: 'general' }">示例 02</a>
+        </li>
+        <li routerLinkActive="active" [routerLinkActiveOptions]="{exact: true}">
+          <a [routerLink]="['/sample', '3']" [queryParams]="{ api: 'general' }">示例 03</a>
+        </li>
+        <li routerLinkActive="active" [routerLinkActiveOptions]="{exact: true}">
+          <a [routerLink]="['/sample', '3']" [queryParams]="{ api: 'general' }">示例 04</a>
+        </li>
+        <li routerLinkActive="active" [routerLinkActiveOptions]="{exact: true}">
+          <a [routerLink]="['/sample', '3']" [queryParams]="{ api: 'general' }">示例 05</a>
+        </li>
+      </ul>
+    </div>
+    <!--/.nav-collapse -->
+  </div>
+</nav>
 
 
 <div class="container">
@@ -31,5 +47,5 @@
   <footer>
     <p>&copy; 2016 Company, Inc.</p>
   </footer>
-</div> <!-- /container -->
-
+</div>
+<!-- /container -->

@@ -16,8 +16,8 @@ public class FormReaderController {
 
     @RequestMapping(value = "", method = RequestMethod.POST)
     public @ResponseBody
-    String uploadImage(@RequestParam("image") MultipartFile uploadfile) throws Exception {
-        return recognizeText(uploadfile);
+    String uploadImage(@RequestParam("image") MultipartFile uploadfile, @RequestParam("api") String api) throws Exception {
+        return recognizeText(uploadfile, api);
     }
 
     @RequestMapping(value = "/test", method = RequestMethod.GET)
@@ -28,7 +28,7 @@ public class FormReaderController {
 
     @RequestMapping(value = "/sample/{id}", method = RequestMethod.GET)
     public @ResponseBody
-    String readSample(@PathVariable("id") String id) throws Exception {
+    String readSample(@PathVariable("id") String id, @RequestParam("api") String api) throws Exception {
         String text = tencentOcr.testSample(id);
         JSONObject object = new JSONObject(text);
         JSONObject wrapper = new JSONObject();
@@ -38,9 +38,9 @@ public class FormReaderController {
     }
 
     //save file
-    private String recognizeText(MultipartFile file) throws Exception {
+    private String recognizeText(MultipartFile file, String api) throws Exception {
         byte[] bytes = file.getBytes();
-        String text = tencentOcr.sendGeneralTextImage(bytes, file.getContentType(), file.getOriginalFilename());
+        String text = tencentOcr.sendGeneralTextImage(bytes, file.getContentType(), file.getOriginalFilename(), api);
         return text;
     }
 }

@@ -9,8 +9,11 @@ import { environment } from '../../environments/environment';
   styleUrls: ['./image-uploader.component.css']
 })
 export class ImageUploaderComponent implements OnInit {
+  api: string;
 
-  constructor(private imageOcrService: ImageOcrService) { }
+  constructor(private imageOcrService: ImageOcrService) { 
+    this.api = 'general';
+  }
 
   ngOnInit() {
   }
@@ -22,8 +25,15 @@ export class ImageUploaderComponent implements OnInit {
   }
 
   onBeforeUpload = (metadata: UploadMetadata) => {
+    metadata.formData = {
+      api: this.api
+    };
     this.imageOcrService.subject.next(metadata);
     return metadata;
   };
+
+  setApi(api: string) {
+    this.api = api;
+  }
 
 }

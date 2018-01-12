@@ -17,7 +17,6 @@ import org.springframework.stereotype.Service;
 
 import javax.annotation.PostConstruct;
 import java.io.*;
-import java.nio.charset.Charset;
 import java.nio.file.Paths;
 import java.time.Duration;
 
@@ -41,6 +40,8 @@ public class TencentOcr {
     private String secretKey;
     @Value("${tencent.ocr.generalOcrAPi}")
     private String generalOcrAPi;
+    @Value("${tencent.ocr.handwritingApi}")
+    private String handwritingApi;
     private String sampleDir;
 
     private Credentials credentials = null;
@@ -51,8 +52,13 @@ public class TencentOcr {
         sampleDir = config.getExtResouceDir();
     }
 
-    public String sendGeneralTextImage(byte[] bytes, String mimeType, String fileName) throws Exception {
-
+    public String sendGeneralTextImage(byte[] bytes, String mimeType, String fileName, String api) throws Exception {
+        if (api == null) {
+            api = generalOcrAPi;
+        }
+        else {
+            api = "/" + api;
+        }
         String auth = Sign.appSign(credentials, bucket, Duration.ofMinutes(30).getSeconds());
 
         org.apache.http.HttpEntity entity = MultipartEntityBuilder.create()
@@ -62,7 +68,7 @@ public class TencentOcr {
                 .addBinaryBody("image", bytes, ContentType.create(mimeType), fileName)
                 .build();
 
-        String text = Request.Post(ocrUrl + generalOcrAPi)
+        String text = Request.Post(ocrUrl + api)
                 .setHeader(HttpHeaders.AUTHORIZATION, auth)
                 .body(entity)
                 .execute().returnContent().asString();
@@ -94,6 +100,6 @@ public class TencentOcr {
         InputStream input = new FileInputStream(f);
         byte[] bytes = ByteStreams.toByteArray(input);
         input.close();
-        return sendGeneralTextImage(bytes, "image/png", id + ".png");
+        return sendGeneralTextImage(bytes, "image/png", id + ".png", null);
     }
 }

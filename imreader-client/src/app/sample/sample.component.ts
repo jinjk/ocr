@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { Observable } from 'rxjs/Observable';
+import { Observable } from 'rxjs/Rx';
 import { Router, ActivatedRoute, ParamMap } from '@angular/router';
 import { ImageOcrService } from '../services/image-ocr.service';
 import { environment } from '../../environments/environment';
@@ -21,11 +21,11 @@ export class SampleComponent implements OnInit {
   ) { }
 
   ngOnInit() {
-
-    this.route.params
-      .subscribe((params: ParamMap) => {
+    Observable.combineLatest(this.route.params, this.route.queryParams, 
+      (params, qparams) => { return { params, qparams }})
+      .subscribe((mp) => {
         this.ocrSample = null;
-        this.service.getSample(params['id']).subscribe(data => this.ocrSample = data)
+        this.service.getSample(mp.params['id'], mp.qparams['api']).subscribe(data => this.ocrSample = data);
       });
   }
 
