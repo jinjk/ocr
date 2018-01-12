@@ -19,6 +19,7 @@ import javax.annotation.PostConstruct;
 import java.io.*;
 import java.nio.file.Paths;
 import java.time.Duration;
+import java.util.concurrent.TimeUnit;
 
 @Service
 public class TencentOcr {
@@ -69,11 +70,12 @@ public class TencentOcr {
                 .build();
 
         logger.info("Request API URL: {}", ocrUrl + api);
+        long begin = System.currentTimeMillis();
         String text = Request.Post(ocrUrl + api)
                 .setHeader(HttpHeaders.AUTHORIZATION, auth)
                 .body(entity)
                 .execute().returnContent().asString();
-
+        logger.info("API {} Time consuming: {} s", api, TimeUnit.MILLISECONDS.toSeconds(System.currentTimeMillis() - begin));
 
         return text;
     }

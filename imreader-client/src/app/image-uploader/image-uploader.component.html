@@ -7,7 +7,9 @@
   </div>
   <br/>
   <div class="row">
-    <image-upload [url]="imageUrl" [beforeUpload]="onBeforeUpload" (uploadFinished)="onUploadFinished($event)">
+    <image-upload [url]="imageUrl" [beforeUpload]="onBeforeUpload" (uploadFinished)="onUploadFinished($event)" 
+      buttonCaption="选择图片"
+      dropBoxMessage="拖拽图片到这里" clearButtonCaption="清除">
     </image-upload>
   </div>
 </div>
