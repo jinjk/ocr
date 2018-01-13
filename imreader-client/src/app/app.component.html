@@ -17,22 +17,22 @@
           <a [routerLink]="['/']">上传表单</a>
         </li>
         <li routerLinkActive="active" [routerLinkActiveOptions]="{exact: true}">
-          <a [routerLink]="['/sample', '1']" [queryParams]="{ api: 'general' }">示例 01</a>
+          <a [routerLink]="['/sample']" [queryParams]="{id:1, api: 'general' }">示例 01</a>
         </li>
         <li routerLinkActive="active" [routerLinkActiveOptions]="{exact: true}">
-          <a [routerLink]="['/sample', '2']" [queryParams]="{ api: 'general' }">示例 02</a>
+          <a [routerLink]="['/sample']" [queryParams]="{ id:2, api: 'general' }">示例 02</a>
         </li>
         <li routerLinkActive="active" [routerLinkActiveOptions]="{exact: true}">
-          <a [routerLink]="['/sample', '3']" [queryParams]="{ api: 'general' }">示例 03</a>
+          <a [routerLink]="['/sample']" [queryParams]="{ id:3, api: 'general' }">示例 03</a>
         </li>
         <li class="dropdown">
           <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">手写识别示例 <span class="caret"></span></a>
           <ul class="dropdown-menu">
               <li routerLinkActive="active" [routerLinkActiveOptions]="{exact: true}">
-                  <a [routerLink]="['/sample', '4']" [queryParams]="{ api: 'handwriting' }">示例 04</a>
+                  <a [routerLink]="['/sample']" [queryParams]="{ id:4, api: 'handwriting' }">示例 04</a>
                 </li>
                 <li routerLinkActive="active" [routerLinkActiveOptions]="{exact: true}">
-                  <a [routerLink]="['/sample', '5']" [queryParams]="{ api: 'handwriting' }">示例 05</a>
+                  <a [routerLink]="['/sample']" [queryParams]="{ id:5, api: 'handwriting' }">示例 05</a>
                 </li>
           </ul>
         </li>
@@ -41,7 +41,6 @@
     <!--/.nav-collapse -->
   </div>
 </nav>
-
 
 <div class="container">
   <!-- Example row of columns -->

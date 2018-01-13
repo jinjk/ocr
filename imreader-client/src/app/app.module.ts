@@ -13,7 +13,7 @@ import { SampleComponent } from './sample/sample.component'
 
 const appRoutes: Routes = [
   { path: '', component: ImageViewerComponent },
-  { path: 'sample/:id', component: SampleComponent },
+  { path: 'sample', component: SampleComponent },
   { path: '**',   redirectTo: '', pathMatch: 'full' }
 ];
 
