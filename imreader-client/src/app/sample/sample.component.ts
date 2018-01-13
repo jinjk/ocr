@@ -24,6 +24,7 @@ export class SampleComponent implements OnInit {
     Observable.combineLatest(this.route.paramMap, this.route.queryParamMap, 
       (params, qparams) => { return { params, qparams }})
       .switchMap((mp) => {
+        this.ocrSample = null;
         return this.service.getSample(mp.params.get('id'), mp.qparams.get('api'));
       })
       .subscribe(data => {this.ocrSample = data});
