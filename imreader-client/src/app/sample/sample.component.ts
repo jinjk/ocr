@@ -21,12 +21,12 @@ export class SampleComponent implements OnInit {
   ) { }
 
   ngOnInit() {
-    Observable.combineLatest(this.route.params, this.route.queryParams, 
+    Observable.combineLatest(this.route.paramMap, this.route.queryParamMap, 
       (params, qparams) => { return { params, qparams }})
-      .subscribe((mp) => {
-        this.ocrSample = null;
-        this.service.getSample(mp.params['id'], mp.qparams['api']).subscribe(data => this.ocrSample = data);
-      });
+      .switchMap((mp) => {
+        return this.service.getSample(mp.params.get('id'), mp.qparams.get('api'));
+      })
+      .subscribe(data => {this.ocrSample = data});
   }
 
   imageLoad() {
