@@ -4,6 +4,7 @@ import 'rxjs/add/operator/switchMap';
 import { Router, ActivatedRoute, ParamMap } from '@angular/router';
 import { ImageOcrService } from '../services/image-ocr.service';
 import { environment } from '../../environments/environment';
+import { samples } from './sample-data';
 declare var jquery: any;
 declare var $: any;
 
@@ -26,9 +27,10 @@ export class SampleComponent implements OnInit {
     this.route.queryParamMap
       .switchMap((params: ParamMap) => {
         this.loading = true;
-        return this.service.getSample(params.get('id'), params.get('api'));
+        return Observable.of(samples[Number(params.get('id')) - 1]);
       })
       .subscribe(data => {
+        console.log("data");
         this.loading = false;
         this.viewerData = {
           imageSrc: this.baseUrl + data.imageUrl,
