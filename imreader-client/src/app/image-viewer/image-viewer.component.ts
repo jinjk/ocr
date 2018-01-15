@@ -50,12 +50,11 @@ export class ImageViewerComponent implements OnInit, OnChanges {
     $("#cell_input > input").focus();
   }
 
-  hideInput(event) {
+  updateField(event) {
     let keyCode: number = event.keyCode;
-    console.log(keyCode);
-    if (keyCode == 27) {
+    if (keyCode == 13) {
+      this.editingItem.itemstring = $("#cell_input > input").val();
       $("#cell_input").hide();
     }
   }
-
 }
