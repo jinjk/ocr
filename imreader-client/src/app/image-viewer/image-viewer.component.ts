@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, AfterViewInit, Input } from '@angular/core';
 import { ImageOcrService } from '../services/image-ocr.service';
 declare var jquery:any;
 declare var $ :any;
@@ -8,19 +8,18 @@ declare var $ :any;
   templateUrl: './image-viewer.component.html',
   styleUrls: ['./image-viewer.component.css']
 })
-export class ImageViewerComponent implements OnInit {
-  data: any;
-  imageSrc: string;
+export class ImageViewerComponent implements OnInit, AfterViewInit {
+  @Input() viewerData: any;
+  @Input() loading: boolean;
+  editingItem: any;
 
-  constructor(private imageOcrService: ImageOcrService) { }
+  constructor() { }
 
   ngOnInit() {
-    this.imageOcrService.imageSent((event: any) => {
-      this.imageSrc = event.src;
-      this.data = event.serverResponse.json();
-    });
-    this.imageOcrService.beginSent((obj: any) => {
-    });
+  }
+
+  ngAfterViewInit() {
+    $("#cell_input").hide();
   }
 
   imageLoad() {
@@ -33,5 +32,27 @@ export class ImageViewerComponent implements OnInit {
     $("svg").attr("viewBox", `-10 -10 ${actualWidth * 1.2} ${actualHeight * 1.2}`);
   }
 
+  editText(event, item) {
+    let text = $(event.target);
+    this.editingItem = item;
+    let coor = text.offset();
+    let top = coor.top;
+    let left = coor.left;
+    $("#cell_input").show();
+    $("#cell_input").offset({top: top, left: left});
+    $("#cell_input").width(item.itemcoord.width * 1.5);
+    $("#cell_input > input").val(item.itemstring);
+  }
+
+  updateField(event) {
+    let keyCode: number = event.keyCode;
+    if (keyCode == 13) {
+      this.editingItem.itemstring = $("#cell_input > input").val();
+      $("#cell_input").hide();
+    }
+    if (keyCode == 27) {
+      $("#cell_input").hide();
+    }
+  }
   
 }

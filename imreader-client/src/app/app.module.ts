@@ -9,10 +9,11 @@ import { AppComponent } from './app.component';
 import { ImageViewerComponent } from './image-viewer/image-viewer.component';
 import { ImageUploaderComponent } from './image-uploader/image-uploader.component';
 import { ImageOcrService } from './services/image-ocr.service';
-import { SampleComponent } from './sample/sample.component'
+import { SampleComponent } from './sample/sample.component';
+import { FormViewerComponent } from './form-viewer/form-viewer.component'
 
 const appRoutes: Routes = [
-  { path: '', component: ImageViewerComponent },
+  { path: '', component: FormViewerComponent },
   { path: 'sample', component: SampleComponent },
   { path: '**',   redirectTo: '', pathMatch: 'full' }
 ];
@@ -22,7 +23,8 @@ const appRoutes: Routes = [
     AppComponent,
     ImageViewerComponent,
     ImageUploaderComponent,
-    SampleComponent
+    SampleComponent,
+    FormViewerComponent
   ],
   imports: [
     RouterModule.forRoot(

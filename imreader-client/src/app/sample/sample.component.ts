@@ -13,7 +13,8 @@ declare var $: any;
   styleUrls: ['./sample.component.css']
 })
 export class SampleComponent implements OnInit {
-  ocrSample: any;
+  viewerData: any;
+  loading: boolean = false;
   baseUrl = environment.baseUrl;
   constructor(
     private route: ActivatedRoute,
@@ -24,20 +25,16 @@ export class SampleComponent implements OnInit {
   ngOnInit() {
     this.route.queryParamMap
       .switchMap((params: ParamMap) => {
-        this.ocrSample = null;
+        this.loading = true;
         return this.service.getSample(params.get('id'), params.get('api'));
       })
-      .subscribe(data => { this.ocrSample = data });
-  }
-
-  imageLoad() {
-    var $img = $("#preview");
-    var h = $img.height(), w = $img.width()
-    $img.removeAttr('width').removeAttr('height')
-    var actualHeight = $img.height(), actualWidth = $img.width()
-    $img.attr({ height: h, width: w }).data({ height: actualHeight, width: actualWidth })
-    console.debug(actualHeight, actualWidth);
-    $("svg").attr("viewBox", `-10 -10 ${actualWidth * 1.2} ${actualHeight * 1.2}`);
+      .subscribe(data => {
+        this.loading = false;
+        this.viewerData = {
+          imageSrc: this.baseUrl + data.imageUrl,
+          data: data.ocr.data
+        }
+      });
   }
 
 }
