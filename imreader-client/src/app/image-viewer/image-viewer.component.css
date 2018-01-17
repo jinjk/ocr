@@ -9,16 +9,22 @@
     text-decoration: underline;
   }
 
-  .table-element {
+  .table-root {
+    background-color: rgba(250, 235, 215, 0.5);
+    top: 10px;
+    left: 10px;
+  }
+
+  .table-element, .table-root  {
     border: 1px solid black;
-    background-color: antiquewhite;
-    opacity: 0.5;
+    position: absolute;
+  }
+
+  .field-title, .field-text {
+    border: 1px solid black;
   }
   
   #table-container {
-
-    width: 100px;
-    height: 100px;
     position: absolute;
     top: 10px;
     left: 10px;

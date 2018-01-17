@@ -30,7 +30,6 @@ export class SampleComponent implements OnInit {
         return Observable.of(samples[Number(params.get('id')) - 1]);
       })
       .subscribe(data => {
-        console.log("data");
         this.loading = false;
         this.viewerData = {
           imageSrc: this.baseUrl + data.imageUrl,

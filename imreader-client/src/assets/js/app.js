@@ -6,6 +6,12 @@ $(document).on('click', '.navbar-collapse.in', function (e) {
     }
 });
 
+$(document).click(function(e) {
+    if($("#contextMenu").is(":visible")) {
+        $("#contextMenu").hide();
+    }
+});
+
 $(document).keydown(function (e) {
     let keyCode = e.which;
     if (keyCode == 27) {

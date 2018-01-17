@@ -1,5 +1,6 @@
 import { Component, OnInit, OnChanges, SimpleChanges, AfterViewInit, Input } from '@angular/core';
 import { ImageOcrService } from '../services/image-ocr.service';
+import { FormField } from './form-field';
 declare var jquery: any;
 declare var $: any;
 
@@ -17,6 +18,10 @@ export enum Action {
 export class ImageViewerComponent implements OnInit, OnChanges, AfterViewInit {
   @Input() viewerData: any;
   @Input() loading: boolean;
+  tableElements = new Map<string, FormField>();
+  keys: string[];
+  pageX: number;
+  pageY: number;
 
   /**
    * action is used to specify the text view editing status
@@ -26,7 +31,7 @@ export class ImageViewerComponent implements OnInit, OnChanges, AfterViewInit {
   action: Action;
   Action = Action;
   svg = {
-    x: -10, y: -10, width: 0, height: 0,
+    x: 0, y: 0, width: 0, height: 0,
     toViewBox: () => {
       return `${this.svg.x} ${this.svg.y} ${this.svg.width} ${this.svg.height}`;
     }
@@ -49,11 +54,12 @@ export class ImageViewerComponent implements OnInit, OnChanges, AfterViewInit {
   }
 
   initView() {
+    console.log("init view...");
     this.action = Action.editText;
     $("#cell_input").hide();
     $("#table-container")
       .hide()
-      .draggable()
+      .draggable({ containment: "parent" })
       .resizable();
 
     var $contextMenu = $("#contextMenu");
@@ -61,7 +67,7 @@ export class ImageViewerComponent implements OnInit, OnChanges, AfterViewInit {
       $contextMenu.hide();
     });
 
-    $('a').click(function (e) {
+    $('a').click(e => {
       e.preventDefault();
       if ($(e.target).data('action') == 'lock') {
         $("#table-container").draggable({ disabled: true });
@@ -71,7 +77,24 @@ export class ImageViewerComponent implements OnInit, OnChanges, AfterViewInit {
         $("#table-container").draggable({ disabled: false });
         $("#table-container").resizable({ disabled: false });
       }
+      else if ($(e.target).data('action') == 'newField') {
+
+        let key = String(Date.now());
+        let formField = new FormField(key);
+        this.tableElements.set(key, formField);
+        let iter = this.tableElements.keys();
+        this.keys = [];
+        for (let k of iter) {
+          this.keys.push(k);
+        }
+      }
     });
+  }
+
+  initField(id: string) {
+    console.log("init filed" + id);
+    this.tableElements.get(id).init(this.pageX, this.pageY);
+
   }
 
   selectLayer(layer: string) {
@@ -94,8 +117,12 @@ export class ImageViewerComponent implements OnInit, OnChanges, AfterViewInit {
     $("#table-container")
       .width($("svg").width() - 20)
       .height($("svg").height() - 20);
+
     var $contextMenu = $("#contextMenu");
-    $(".table-element").on("contextmenu", function (e) {
+
+    $(".table-element").on("contextmenu", e => {
+      this.pageX = e.pageX;
+      this.pageY = e.pageY;
       $contextMenu.css({
         display: "block",
         left: e.pageX,
