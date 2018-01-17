@@ -42,18 +42,73 @@ export class ImageViewerComponent implements OnInit, OnChanges, AfterViewInit {
   }
 
   ngAfterViewInit() {
+    this.initView();
     $("svg").click((event) => {
       $("#cell_input").hide();
     });
   }
 
-  public initView() {
+  initView() {
     this.action = Action.editText;
     $("#cell_input").hide();
+    $("#table-container")
+      .hide()
+      .draggable()
+      .resizable();
+
+    var $contextMenu = $("#contextMenu");
+    $contextMenu.on("click", "a", function () {
+      $contextMenu.hide();
+    });
+
+    $('a').click(function (e) {
+      e.preventDefault();
+      if ($(e.target).data('action') == 'lock') {
+        $("#table-container").draggable({ disabled: true });
+        $("#table-container").resizable({ disabled: true });
+      }
+      else if ($(e.target).data('action') == 'unlock') {
+        $("#table-container").draggable({ disabled: false });
+        $("#table-container").resizable({ disabled: false });
+      }
+    });
   }
 
-  enableEditingTable() {
+  selectLayer(layer: string) {
+    if (layer == 'table') {
+      this.action = Action.editTable;
+      this.setSelectable(false);
+      $("svg > * > text").attr("class", "svg-text-underline");
+      this.drawTable();
+    }
+    else if (layer == 'svg') {
+      this.action = Action.editText;
+      this.setSelectable(true);
+      $("svg > * > text").attr("class", "svg-text");
+      $("#table-container").hide();
+    }
+  }
 
+  private drawTable() {
+    $("#table-container").show();
+    $("#table-container")
+      .width($("svg").width() - 20)
+      .height($("svg").height() - 20);
+    var $contextMenu = $("#contextMenu");
+    $(".table-element").on("contextmenu", function (e) {
+      $contextMenu.css({
+        display: "block",
+        left: e.pageX,
+        top: e.pageY
+      });
+      return false;
+    });
+  }
+
+  private setSelectable(enabled: boolean) {
+    $("svg").mousedown(event => {
+      return enabled;
+    });
   }
 
   imageLoad() {
@@ -68,6 +123,10 @@ export class ImageViewerComponent implements OnInit, OnChanges, AfterViewInit {
   }
 
   editText(event, item) {
+    if (this.action == Action.editTable) {
+      return;
+    }
+
     event = $.event.fix(event);
     event.stopPropagation();
     let text = $(event.target);
