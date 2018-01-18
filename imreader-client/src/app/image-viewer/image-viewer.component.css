@@ -13,17 +13,25 @@
     background-color: rgba(250, 235, 215, 0.5);
     top: 10px;
     left: 10px;
-  }
-
-  .table-element, .table-root  {
     border: 1px solid black;
     position: absolute;
+  }
+
+  .table-element  {
+    border: 1px solid black;
+    position: absolute;
+    width: 160px;
+  }
+
+  .field-title-input {
+    background-color:rgba(0, 0, 0, 0);
   }
 
   .field-title {
     margin: 0px;
     float:left;
     overflow: hidden;
+    width: 80px;
     height: 100%;
     border: 1px solid black;
   }

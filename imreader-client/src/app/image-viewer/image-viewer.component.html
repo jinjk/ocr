@@ -26,7 +26,7 @@
           </svg>
           <div id='table-container' class="table-root table-element"></div>
           <div class="table-element" [id]="key" *ngFor="let key of keys">
-            <div class="field-title"><input type="text" class="form-control" placeholder="字段名" /></div>
+            <div class="field-title"><input type="text" class="form-control field-title-input" placeholder="字段名" /></div>
             <div class="field-text"></div>
             {{initField(key)}}
           </div>
