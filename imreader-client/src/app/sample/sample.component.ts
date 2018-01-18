@@ -4,7 +4,8 @@ import 'rxjs/add/operator/switchMap';
 import { Router, ActivatedRoute, ParamMap } from '@angular/router';
 import { ImageOcrService } from '../services/image-ocr.service';
 import { environment } from '../../environments/environment';
-import { samples } from './sample-data';
+import { samples } from '../test-data/sample-data';
+import { formDataMap } from '../test-data/form-data';
 declare var jquery: any;
 declare var $: any;
 
@@ -16,6 +17,7 @@ declare var $: any;
 export class SampleComponent implements OnInit {
   viewerData: any;
   loading: boolean = false;
+  formData: any;
   baseUrl = environment.baseUrl;
   constructor(
     private route: ActivatedRoute,
@@ -35,6 +37,10 @@ export class SampleComponent implements OnInit {
           imageSrc: this.baseUrl + data.imageUrl,
           data: data.ocr.data
         }
+        if (formDataMap.get(this.viewerData.imageSrc) == null) {
+          formDataMap.set(this.viewerData.imageSrc, {});
+        }
+        this.formData = formDataMap.get(this.viewerData.imageSrc);
       });
   }
 

@@ -18,12 +18,14 @@ export enum Action {
 export class ImageViewerComponent implements OnInit, OnChanges, AfterViewChecked {
   @Input() viewerData: any;
   @Input() loading: boolean;
-  tableElements = new Map<string, FormField>();
+  @Input() formData: any;
+  tableElements = {};
   magnificationX: number = 1;
   magnificationY: number = 1.2;
   keys: string[];
   pageX: number;
   pageY: number;
+
 
   /**
    * action is used to specify the text view editing status
@@ -42,11 +44,10 @@ export class ImageViewerComponent implements OnInit, OnChanges, AfterViewChecked
   constructor() { }
 
   ngOnInit() {
-    console.log("on init");
   }
 
   ngOnChanges(changes: SimpleChanges) {
-    console.log("on changes");
+    console.log("viewer data", this.viewerData);
     this.action = Action.editText;
     this.viewInitiated = false;
   }
@@ -54,11 +55,21 @@ export class ImageViewerComponent implements OnInit, OnChanges, AfterViewChecked
   private viewInitiated = false;
 
   ngAfterViewChecked() {
-    console.log("after view checked");
-    if(! this.viewInitiated) {
+    if (!this.viewInitiated) {
       this.initView();
+      this.viewInitiated = true;
     }
-    this.viewInitiated = true;
+
+    if (this.action == Action.editTable) {
+      for(let key in this.tableElements) {
+        this.tableElements[key].show();
+      }
+    }
+    else {
+      for(let key in this.tableElements) {
+        this.tableElements[key].hide();
+      }
+    }
   }
 
   initView() {
@@ -85,27 +96,16 @@ export class ImageViewerComponent implements OnInit, OnChanges, AfterViewChecked
         $("#table-container").resizable({ disabled: false });
       }
       else if ($(e.target).data('action') == 'newField') {
-
         let key = String(Date.now());
-        let formField = new FormField(key);
-        this.tableElements.set(key, formField);
-        let iter = this.tableElements.keys();
-        this.keys = [];
-        for (let k of iter) {
-          this.keys.push(k);
-        }
+        let formField = new FormField(key, this.pageX, this.pageY, this);
+        this.tableElements[key] = formField;
+        this.keys = Object.keys(this.tableElements);
       }
     });
 
     $("svg").click((event) => {
       $("#cell_input").hide();
     });
-  }
-
-  initField(id: string) {
-    console.log("init filed" + id);
-    this.tableElements.get(id).init(this.pageX, this.pageY);
-
   }
 
   selectLayer(layer: string) {
@@ -132,7 +132,7 @@ export class ImageViewerComponent implements OnInit, OnChanges, AfterViewChecked
 
     var $contextMenu = $("#contextMenu");
 
-    $(".table-element").on("contextmenu", e => {
+    $(".table-root").on("contextmenu", e => {
       this.pageX = e.pageX;
       this.pageY = e.pageY;
       $contextMenu.css({
@@ -154,27 +154,40 @@ export class ImageViewerComponent implements OnInit, OnChanges, AfterViewChecked
     let img = $("#preview")[0];
 
     let actualHeight = img.naturalHeight, actualWidth = img.naturalWidth;
-    console.log({width: actualWidth, height: actualHeight});
     actualWidth = Math.ceil(actualWidth * this.magnificationX); actualHeight = Math.ceil(actualHeight * this.magnificationY);
     this.svg.width = actualWidth;
     this.svg.height = actualHeight;
   }
-/*
-  private __maxXY(data: any): any {
-    let items = data.data.items;
-    let x = 0, y = 0;
-    for (let item of items) {
-      let coord = item.itemcoord;
-      if (x < coord.x + coord.width) {
-        x = coord.x + coord.width;
-      }
-      if (y < coord.y + coord.height) {
-        y = coord.y + coord.height;
-      }
+
+  public getOriginalCoord(coord: any): any {
+    let vWidth = $("svg").width();
+    let ratio = this.svg.width / vWidth;
+    let newCoord = {
+      x: coord.x * ratio / this.magnificationX ,
+      y: coord.y * ratio / this.magnificationY,
+      width: coord.width * ratio / this.magnificationX,
+      height: coord.height * ratio / this.magnificationY
     }
-    return {x: x, y: y};
+    console.log("newCoord", coord);
+    return newCoord;
   }
-*/
+
+  /*
+    private __maxXY(data: any): any {
+      let items = data.data.items;
+      let x = 0, y = 0;
+      for (let item of items) {
+        let coord = item.itemcoord;
+        if (x < coord.x + coord.width) {
+          x = coord.x + coord.width;
+        }
+        if (y < coord.y + coord.height) {
+          y = coord.y + coord.height;
+        }
+      }
+      return {x: x, y: y};
+    }
+  */
   editText(event, item) {
     if (this.action == Action.editTable) {
       return;

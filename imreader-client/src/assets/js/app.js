@@ -17,4 +17,5 @@ $(document).keydown(function (e) {
     if (keyCode == 27) {
         $("#cell_input").hide();
     }
+    return true;
 });
