@@ -1,4 +1,4 @@
-import { Component, OnInit, OnChanges, SimpleChanges, AfterViewInit, Input } from '@angular/core';
+import { Component, OnInit, OnChanges, SimpleChanges, AfterViewChecked, Input } from '@angular/core';
 import { ImageOcrService } from '../services/image-ocr.service';
 import { FormField } from './form-field';
 declare var jquery: any;
@@ -15,7 +15,7 @@ export enum Action {
   templateUrl: './image-viewer.component.html',
   styleUrls: ['./image-viewer.component.css']
 })
-export class ImageViewerComponent implements OnInit, OnChanges, AfterViewInit {
+export class ImageViewerComponent implements OnInit, OnChanges, AfterViewChecked {
   @Input() viewerData: any;
   @Input() loading: boolean;
   tableElements = new Map<string, FormField>();
@@ -30,7 +30,7 @@ export class ImageViewerComponent implements OnInit, OnChanges, AfterViewInit {
    * if action is 'editTable' then tableView will be activated, otherwise,
    * if action is 'editText', text content editing will be enabled.
    */
-  action: Action;
+  action: Action = Action.editText;
   Action = Action;
   svg = {
     x: 0, y: 0, width: 0, height: 0,
@@ -42,22 +42,27 @@ export class ImageViewerComponent implements OnInit, OnChanges, AfterViewInit {
   constructor() { }
 
   ngOnInit() {
+    console.log("on init");
   }
 
   ngOnChanges(changes: SimpleChanges) {
-    this.initView();
+    console.log("on changes");
+    this.action = Action.editText;
+    this.viewInitiated = false;
   }
 
-  ngAfterViewInit() {
-    this.initView();
-    $("svg").click((event) => {
-      $("#cell_input").hide();
-    });
+  private viewInitiated = false;
+
+  ngAfterViewChecked() {
+    console.log("after view checked");
+    if(! this.viewInitiated) {
+      this.initView();
+    }
+    this.viewInitiated = true;
   }
 
   initView() {
-    console.log("init view...");
-    this.action = Action.editText;
+    console.log("init view ...")
     $("#cell_input").hide();
     $("#table-container")
       .hide()
@@ -91,6 +96,10 @@ export class ImageViewerComponent implements OnInit, OnChanges, AfterViewInit {
         }
       }
     });
+
+    $("svg").click((event) => {
+      $("#cell_input").hide();
+    });
   }
 
   initField(id: string) {
@@ -115,6 +124,7 @@ export class ImageViewerComponent implements OnInit, OnChanges, AfterViewInit {
   }
 
   private __drawTable() {
+    console.log("draw table ...")
     $("#table-container").show();
     $("#table-container")
       .width($("svg").width() - 20)

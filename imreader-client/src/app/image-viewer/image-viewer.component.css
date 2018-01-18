@@ -20,7 +20,18 @@
     position: absolute;
   }
 
-  .field-title, .field-text {
+  .field-title {
+    margin: 0px;
+    float:left;
+    overflow: hidden;
+    height: 100%;
+    border: 1px solid black;
+  }
+
+  .field-text {
+    margin: 0px;
+    overflow: hidden;
+    height: 100%;
     border: 1px solid black;
   }
   

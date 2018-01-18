@@ -25,23 +25,23 @@ export class FormField {
             let coord = this.calcCoord(x, y);
             console.log("coord", coord);
             element
-                .resizable({
-                    minHeight: 150,
-                    minWidth: 200
-                })
+                .resizable()
                 .draggable({ containment: "#table-container" })
                 .css({
                     left: coord.left,
                     top: coord.top
-                  });
+                });
+            $(element).children(".field-title").resizable({
+                handles: 'e, w'
+            });
 
 
         }
     }
 
-    calcCoord(x: number, y: number):any {
+    calcCoord(x: number, y: number): any {
         let pos = $("#svg-container").offset()
         console.log(pos, x, y);
-        return {left: x - pos.left, top: y - pos.top};
+        return { left: x - pos.left, top: y - pos.top };
     }
 }
