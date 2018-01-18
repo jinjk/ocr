@@ -19,6 +19,8 @@ export class ImageViewerComponent implements OnInit, OnChanges, AfterViewInit {
   @Input() viewerData: any;
   @Input() loading: boolean;
   tableElements = new Map<string, FormField>();
+  magnificationX: number = 1;
+  magnificationY: number = 1.2;
   keys: string[];
   pageX: number;
   pageY: number;
@@ -100,19 +102,19 @@ export class ImageViewerComponent implements OnInit, OnChanges, AfterViewInit {
   selectLayer(layer: string) {
     if (layer == 'table') {
       this.action = Action.editTable;
-      this.setSelectable(false);
+      this.__setSelectable(false);
       $("svg > * > text").attr("class", "svg-text-underline");
-      this.drawTable();
+      this.__drawTable();
     }
     else if (layer == 'svg') {
       this.action = Action.editText;
-      this.setSelectable(true);
+      this.__setSelectable(true);
       $("svg > * > text").attr("class", "svg-text");
       $("#table-container").hide();
     }
   }
 
-  private drawTable() {
+  private __drawTable() {
     $("#table-container").show();
     $("#table-container")
       .width($("svg").width() - 20)
@@ -132,23 +134,37 @@ export class ImageViewerComponent implements OnInit, OnChanges, AfterViewInit {
     });
   }
 
-  private setSelectable(enabled: boolean) {
+  private __setSelectable(enabled: boolean) {
     $("svg").mousedown(event => {
       return enabled;
     });
   }
 
   imageLoad() {
-    let $img = $("#preview");
-    let h = $img.height(), w = $img.width()
-    $img.removeAttr('width').removeAttr('height')
-    let actualHeight = $img.height(), actualWidth = $img.width()
-    $img.attr({ height: h, width: w }).data({ height: actualHeight, width: actualWidth })
-    actualWidth = Math.ceil(actualWidth * 1.2); actualHeight = Math.ceil(actualHeight * 1.2);
+    let img = $("#preview")[0];
+
+    let actualHeight = img.naturalHeight, actualWidth = img.naturalWidth;
+    console.log({width: actualWidth, height: actualHeight});
+    actualWidth = Math.ceil(actualWidth * this.magnificationX); actualHeight = Math.ceil(actualHeight * this.magnificationY);
     this.svg.width = actualWidth;
     this.svg.height = actualHeight;
   }
-
+/*
+  private __maxXY(data: any): any {
+    let items = data.data.items;
+    let x = 0, y = 0;
+    for (let item of items) {
+      let coord = item.itemcoord;
+      if (x < coord.x + coord.width) {
+        x = coord.x + coord.width;
+      }
+      if (y < coord.y + coord.height) {
+        y = coord.y + coord.height;
+      }
+    }
+    return {x: x, y: y};
+  }
+*/
   editText(event, item) {
     if (this.action == Action.editTable) {
       return;
