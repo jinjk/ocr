@@ -57,3 +57,12 @@
     position: absolute;
     display:none;
   }
+
+  .form-multiline .form-group {
+    margin-bottom: 15px;
+    margin-right: 30px;
+  }
+  .form-multiline label,
+  .form-multiline .form-control {
+    margin-right: 15px;
+  }

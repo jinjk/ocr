@@ -1,16 +1,26 @@
 <div class="container-fluid" *ngIf="viewerData != null">
   <div class="row">
     <div class="col-md-4">
-      <img id="preview" class="img-responsive" alt="Embedded Image" [src]="viewerData.imageSrc" (load)="imageLoad()" />
+      <div class="container-fluid">
+        <div class="row">
+          <img id="preview" class="img-responsive" alt="Embedded Image" [src]="viewerData.imageSrc" (load)="imageLoad()" />
+        </div>
+        <div class="row">
+          <div class="form form-inline form-multiline">
+            <div class="form-group" *ngFor="let field of keys | fieldFilter: tableElements">
+              <label for="field.title.text">{{field.title.text}}</label>
+              <input type="text" class="form-control" id="field.title.text" (change)="viewData(field.text.item.itemstring)" [(ngModel)]="field.text.item.itemstring" />
+            </div>
+          </div>
+        </div>
+      </div>
     </div>
     <div class="col-md-8">
       <div class="container-fluid">
         <div class="row">
           <div class="btn-group" role="group" aria-label="Default button group">
-            <button type="button" [ngClass]="{'btn-primary': action == Action.editTable}" 
-            (click)="selectLayer('table')" class="btn btn-default">编辑表单</button>
-            <button type="button" [ngClass]="{'btn-primary': action == Action.editText}" 
-            (click)="selectLayer('svg')" class="btn btn-default">修改字符</button>
+            <button type="button" [ngClass]="{'btn-primary': action == Action.editTable}" (click)="selectLayer('table')" class="btn btn-default">编辑表单</button>
+            <button type="button" [ngClass]="{'btn-primary': action == Action.editText}" (click)="selectLayer('svg')" class="btn btn-default">修改字符</button>
           </div>
         </div>
         <div class="row" id="svg-container">
@@ -18,15 +28,15 @@
             <rect [attr.x]="svg.x" [attr.y]="svg.y" [attr.width]="svg.width" [attr.height]="svg.height" stroke='black' fill='transparent'
               stroke-width='1' />
             <g *ngFor="let item of viewerData.data.items">
-              <text (click)="editText($event, item)" 
-              [attr.x]="item.itemcoord.x * magnificationX" 
-              [attr.y]="item.itemcoord.y * magnificationY"
+              <text (click)="editText($event, item)" [attr.x]="item.itemcoord.x * magnificationX" [attr.y]="item.itemcoord.y * magnificationY"
                 class="svg-text">{{item.itemstring}}</text>
             </g>
           </svg>
           <div id='table-container' class="table-root"></div>
           <div class="table-element" [id]="key" *ngFor="let key of keys">
-            <div class="field-title"><input type="text" class="form-control field-title-input" placeholder="字段名" /></div>
+            <div class="field-title">
+              <input type="text" class="form-control field-title-input" placeholder="字段名" />
+            </div>
             <div class="field-text"></div>
           </div>
         </div>

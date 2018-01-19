@@ -47,7 +47,7 @@ export class FormField {
                     top: coord.y
                 });
             this.element.children(".field-title").resizable({
-                handles: 'e, w'
+                handles: 'e'
             });
 
             this.element.keydown(event => {
@@ -90,10 +90,10 @@ export class FormField {
         this.fieldData['title'] = title;
         this.fieldData['text'] = text;
 
-        this.__updateViewModel(textCoord);
+        this.__updateViewModel(text, textCoord);
     }
 
-    private __updateViewModel(coord: any) {
+    private __updateViewModel(text: any, coord: any) {
         coord = this.viewComp.getOriginalCoord(coord);
         let data = this.viewerData.data;
         let x0 = coord.x, y0 = coord.y, x1 = coord.x + coord.width, y1 = coord.y + coord.height;
@@ -109,6 +109,7 @@ export class FormField {
         items.sort((a, b) => {
             return a.itemcoord.x - b.itemcoord.x;
         })
+        console.log("items length", items.length);
         let first = null;
         if (items.length > 0) {
             first = items[0];
@@ -126,6 +127,8 @@ export class FormField {
             }
         })
 
+        text['item'] = first;
+        this.viewComp.keys = Object.keys(this.formData);
     }
 
     calcCoord(x: number, y: number): any {

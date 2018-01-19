@@ -1,5 +1,6 @@
 import { Component, OnInit, OnChanges, SimpleChanges, AfterViewChecked, Input } from '@angular/core';
 import { ImageOcrService } from '../services/image-ocr.service';
+import { FieldFilterPipe } from '../pipes/field-filter.pipe'
 import { FormField } from './form-field';
 declare var jquery: any;
 declare var $: any;
@@ -22,7 +23,7 @@ export class ImageViewerComponent implements OnInit, OnChanges, AfterViewChecked
   tableElements = {};
   magnificationX: number = 1;
   magnificationY: number = 1.2;
-  keys: string[];
+  keys: string[] = [];
   pageX: number;
   pageY: number;
 
@@ -123,6 +124,10 @@ export class ImageViewerComponent implements OnInit, OnChanges, AfterViewChecked
     }
   }
 
+  filter(keys: any[]) {
+
+  }
+
   private __drawTable() {
     console.log("draw table ...")
     $("#table-container").show();
@@ -213,5 +218,10 @@ export class ImageViewerComponent implements OnInit, OnChanges, AfterViewChecked
       this.editingItem.itemstring = $("#cell_input > input").val();
       $("#cell_input").hide();
     }
+  }
+
+  viewData(str: string) {
+    console.log(this.viewerData);
+    console.log(str);
   }
 }
