@@ -1,16 +1,23 @@
 <div class="container-fluid" *ngIf="viewerData != null">
   <div class="row">
-    <div class="col-md-4">
+    <div id="imageContainer" class="col-md-4">
       <div class="container-fluid">
         <div class="row">
           <img id="preview" class="img-responsive" alt="Embedded Image" [src]="viewerData.imageSrc" (load)="imageLoad()" />
         </div>
-        <div class="row">
-          <div class="form form-inline form-multiline">
-            <div class="form-group" *ngFor="let field of keys | fieldFilter: tableElements">
-              <label for="field.title.text">{{field.title.text}}</label>
-              <input type="text" class="form-control" id="field.title.text" (change)="viewData(field.text.item.itemstring)" [(ngModel)]="field.text.item.itemstring" />
-            </div>
+        <div id="tableContainer" class="row">
+          <div id="fieldsTable">
+            <table class="table">
+              <tr class="form-group" *ngFor="let field of keys | fieldFilter: tableElements">
+                <td>
+                  <label for="field.title.text">{{field.title.text}}</label>
+                </td>
+                <td>
+                  <input type="text" class="form-control" id="field.title.text" (change)="viewData(field.text.item.itemstring)" [(ngModel)]="field.text.item.itemstring"
+                  />
+                </td>
+              </tr>
+            </table>
           </div>
         </div>
       </div>
