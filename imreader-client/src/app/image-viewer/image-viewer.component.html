@@ -1,8 +1,8 @@
 <div class="container-fluid" *ngIf="viewerData != null">
   <div class="row">
-    <div id="imageContainer" class="col-md-4">
+    <div class="col-md-4">
       <div class="container-fluid">
-        <div class="row">
+        <div id="imageContainer" class="row">
           <img id="preview" class="img-responsive" alt="Embedded Image" [src]="viewerData.imageSrc" (load)="imageLoad()" />
         </div>
         <div id="tableContainer" class="row">

@@ -51,6 +51,7 @@ export class ImageViewerComponent implements OnInit, OnChanges, AfterViewChecked
     console.log("viewer data", this.viewerData);
     this.action = Action.editText;
     this.viewInitiated = false;
+    this.keys = Object.keys(this.tableElements);
   }
 
   private viewInitiated = false;

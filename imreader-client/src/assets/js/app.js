@@ -27,14 +27,15 @@ $window.scroll(function (e) {
     let fieldsTable = $("#fieldsTable");
 
 
-    if (imageContainer != null) {
+    if (imageContainer.length > 0) {
         let pos = imageContainer.offset();
         let height = imageContainer.height();
-        let threshold = pos.top + height - 150;
+        console.log(pos);
+        let threshold = pos.top + height - 100;
         if (top > threshold && !posStat.greater) {
             fieldsTable.css({
                 position: 'fixed',
-                top: pos.top
+                top: 100
             });
         }
         if (top <= threshold && posStat.greater) {
