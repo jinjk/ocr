@@ -21,6 +21,7 @@
     border: 1px solid black;
     position: absolute;
     width: 160px;
+    height: 40px;
   }
 
   .field-title-input {
@@ -40,7 +41,7 @@
     margin: 0px;
     overflow: hidden;
     height: 100%;
-    border: 1px solid black;
+    border: 1px solid yellow;
   }
   
   #table-container {

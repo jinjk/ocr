@@ -49,7 +49,6 @@ export class FormField {
             this.element.children(".field-title").resizable({
                 handles: 'e'
             });
-
             this.element.keydown(event => {
                 if (event.which == 13) {
                     this.__updateFormModelAndViewModel();
@@ -106,6 +105,15 @@ export class FormField {
                 items.push(item);
             }
         }
+
+        if(items.length > 0) {
+            console.log("find items", coord);
+        }
+        else {
+            console.log("find nothing", coord);
+            return;
+        }
+
         items.sort((a, b) => {
             return a.itemcoord.x - b.itemcoord.x;
         })
