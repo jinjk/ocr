@@ -12,7 +12,7 @@ export class ImageUploaderComponent implements OnInit {
   api: string;
 
   constructor(private imageOcrService: ImageOcrService) { 
-    this.api = 'general';
+    this.api = 'handwriting';
   }
 
   ngOnInit() {

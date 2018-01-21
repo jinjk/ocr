@@ -20,11 +20,13 @@
       "prefix": "app",
       "styles": [
         "../node_modules/bootstrap/dist/css/bootstrap.min.css",
+        "../node_modules/jquery-ui-dist/jquery-ui.min.css",
         "assets/css/ie10-viewport-bug-workaround.css",
         "styles.css" 
       ],
       "scripts": [
         "../node_modules/jquery/dist/jquery.min.js",
+        "../node_modules/jquery-ui-dist/jquery-ui.min.js",
         "../node_modules/bootstrap/dist/js/bootstrap.min.js",
         "assets/js/app.js"
       ],
