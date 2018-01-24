@@ -13,3 +13,6 @@ tencent.ocr:
 logging.level:
   com.chinasofti.imreader: DEBUG
   org.apache.http.wire: INFO
+
+spring.http.multipart.max-file-size: 100MB
+spring.http.multipart.max-request-size: 100MB
